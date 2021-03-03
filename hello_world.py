@@ -1,10 +1,11 @@
 # asi se escriben los comentarios
 # en las primeras lineas van los imports
-import plots
+import library
 import numpy as np
 
 
 # aca se definen las variables globales
+x = [1,2,3,4]
 x = 9
 y = 'mineria de datos'
 z = False
@@ -29,7 +30,7 @@ if __name__ == "__main__":
     print('hola mundo!')
     nombre = input('como es tu nombre? ')
     saludar(nombre)
-    plots.basic()
+    print( x , " + 1 = " , library.sumar(x, 1))
 
 
     

@@ -1,18 +1,28 @@
 import numpy as np
-from sklearn import datasets
+
 import matplotlib.pyplot as plt
+from sklearn import datasets
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
 
 
-np.random.seed(0)
+np.random.seed(6)
 
 # define dataset
 iris_X, iris_y = datasets.load_iris(return_X_y=True)
 np.unique(iris_y)
 
+indices = np.random.permutation(len(iris_X))
+iris_X_train = iris_X[indices[:-10]]
+iris_y_train = iris_y[indices[:-10]]
+iris_X_test = iris_X[indices[-10:]]
+iris_y_test = iris_y[indices[-10:]]
+
 
 # returns accuracy as a number between 0 and 1
 def accuracy(prediction, real):
+
+    
     if len(prediction) != len(real):
         print("arrays dont match")
         return 0
@@ -24,7 +34,11 @@ def accuracy(prediction, real):
     
     return correct / length
 
-def plot():
+def plotData():
+
+    print("iris_x: ", iris_X)
+    print("iris_y:" , iris_y)
+
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
@@ -55,25 +69,37 @@ def plot():
     # plt.savefig("graphs/iris_original.png")
     ax.view_init(30, 60)
     plt.savefig("graphs/iris_original.png")
+    plt.show()
 
-
-
-    # plt.show()
-
-def nearestNeighbour():
-    indices = np.random.permutation(len(iris_X))
-    iris_X_train = iris_X[indices[:-10]]
-    iris_y_train = iris_y[indices[:-10]]
-    iris_X_test = iris_X[indices[-10:]]
-    iris_y_test = iris_y[indices[-10:]]
+def classify_knn():
+    print("====================")
+    print("Using a K-NN classifier")
     # Create and fit a nearest-neighbor classifier
     knn = KNeighborsClassifier()
     knn.fit(iris_X_train, iris_y_train)
     prediction = knn.predict(iris_X_test)
+
+    
+    print('prediction: ', prediction)
+    print('actual:     ', iris_y_test)
+    print('accuracy:   ', accuracy(prediction, iris_y_test))
+
+
+def classify_svm():
+    print("====================")
+    print("Using an SVM classifier")
+    svc = svm.SVC(kernel='linear')
+    svc.fit(iris_X_train, iris_y_train)
+
+    prediction = svc.predict(iris_X_test)
 
     print('prediction: ', prediction)
     print('actual:     ', iris_y_test)
     print('accuracy:   ', accuracy(prediction, iris_y_test))
 
 
-nearestNeighbour()
+if __name__ == "__main__":
+    classify_svm()
+
+
+    

@@ -149,4 +149,7 @@ if __name__ == "__main__":
         print("plot types:")
         for i in options:
             print(i)
+        print("--------------------")
+        print("example: plots.py basic")
+
 
