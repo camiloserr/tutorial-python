@@ -99,7 +99,9 @@ def classify_svm():
 
 
 if __name__ == "__main__":
+    plotData()
     classify_svm()
+    classify_knn()
 
 
     
